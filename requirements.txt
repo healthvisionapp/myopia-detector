@@ -1,0 +1,6 @@
+flask
+tensorflow==2.19.0
+opencv-python-headless
+firebase-admin
+gunicorn
+requests

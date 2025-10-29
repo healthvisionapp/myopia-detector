@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Check your Myopia</title>
+  <style>
+    /* 🌸 Page Styling */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #e6f0f2, #f8f8f8);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 30px 15px;
+      overflow: hidden; /* ✅ No scroll */
+    }
+
+    /* 🌸 Main Card */
+    .container {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      padding: 25px 20px;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid #7dacb5;
+      animation: fadeIn 0.6s ease-in-out;
+      max-height: 90vh; /* ✅ Prevent overflow */
+      overflow: hidden; /* ✅ Ensures content fits inside */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      color: #5A827E;
+      font-size: 23px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    input[type="file"] {
+    margin: 15px auto;
+    display: block;
+    width: calc(100% - 10px);
+    border: 2px dashed #7dacb5;
+    border-radius: 10px;
+    padding: 7px; /* smaller height */
+    background-color: #f1f5f6;
+    color: #333;
+    cursor: pointer;
+    font-size: 16px; /* ✅ makes “Choose File / No file selected” text bigger */
+    font-weight: 500; /* ✅ makes it bold-ish */
+    transition: 0.3s;
+  }
+
+    input[type="file"]:hover {
+      border-color: #5A827E;
+      background: #fff;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background: #5A827E;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      transition: 0.3s;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #4e6f6b;
+      transform: scale(1.03);
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #5A827E;
+    }
+
+    /* 🌸 Image Styling - auto resize without overflow */
+    img {
+      margin-top: 10px;
+      width: 100%;
+      max-height: 200px; /* ✅ limits height */
+      object-fit: contain; /* ✅ keeps full image visible */
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 20px 15px; }
+      h1 { font-size: 20px; }
+      button { font-size: 15px; }
+      img { max-height: 180px; } /* ✅ smaller on mobile */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Eye Disease Classifier</h1>
+
+    <form action="/predict?uid={{ request.args.get('uid') }}" method="post" enctype="multipart/form-data">
+      <input type="file" name="file" accept="image/*" required>
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if result %}
+      <div class="result">Prediction: {{ result }}</div>
+      <img src="{{ image_url }}" alt="Uploaded Image">
+    {% endif %}
+  </div>
+</body>
+</html>
