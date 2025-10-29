@@ -1,5 +1,5 @@
 flask
-tensorflow==2.19.0
+tensorflow==2.20.0
 opencv-python-headless
 firebase-admin
 gunicorn
